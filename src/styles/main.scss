@@ -1,0 +1,971 @@
+$primary-color: #EC4899;
+$secondary-color: #DB2777;
+$background-color: #FFFFFF;
+$gray-700: #111827;
+$gray-500: #6B7280;
+$gray-300: #D1D5DB;
+$pink-100: #FCE7F3;
+$pink-200: #FBCFE8;
+$pink-300: #F9A8D4;
+$shadow-light: 0 1px 3px rgba(0, 0, 0, 0.05);
+$shadow-medium: 0 2px 6px rgba(0, 0, 0, 0.1);
+$transition: all 0.2s ease;
+$padding-base: 1.5rem;
+$padding-sm: 1rem;
+$gap-base: 1.5rem;
+$border-radius: 12px;
+
+@mixin button-base {
+  padding: 8px 16px;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: $transition;
+  margin-right: 8px;
+
+  &:hover {
+    box-shadow: $shadow-light;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@mixin symbol-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: $primary-color;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: $transition;
+  padding: 0;
+  margin: 0 4px;
+
+  &:hover {
+    color: $secondary-color;
+    transform: scale(1.1);
+  }
+}
+
+// Reset and Base Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', 'Inter', Arial, sans-serif;
+  background-color: $background-color;
+  color: $gray-700;
+  line-height: 1.6;
+}
+
+// App Wrapper
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// Add Employee Button
+.add-employee-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background-color: $pink-300;
+  color: $background-color;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: $transition;
+
+  &:hover {
+    background-color: $primary-color;
+    transform: scale(1.1);
+  }
+}
+
+// Header
+header {
+  background-color: $pink-100;
+  padding: $padding-base 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid $gray-300;
+  box-shadow: $shadow-light;
+  animation: fadeIn 0.5s ease-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 500;
+
+    a {
+      color: $gray-700;
+      text-decoration: none;
+      transition: $transition;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  nav {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      background-color: $pink-300;
+      color: $gray-700;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border: 1px solid $gray-300;
+      border-radius: $border-radius;
+      transition: $transition;
+
+      &:hover {
+        background-color: $primary-color;
+        color: $gray-700;
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+// Container
+main.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: $padding-base;
+  flex: 1;
+  text-align: center;
+}
+
+// Global Link Styles
+a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: $transition;
+  display: inline-block;
+
+  &:hover {
+    color: $secondary-color;
+    text-decoration: underline;
+  }
+}
+
+// Specific Link Styles for Salaries and Department Rankings
+.salaries a,
+.department-ranking a {
+  color: $primary-color;
+
+  &:visited {
+    color: $primary-color;
+  }
+
+  &:hover {
+    color: $secondary-color;
+    text-decoration: underline;
+  }
+}
+
+// Buttons
+button,
+a.button {
+  @include button-base;
+  background-color: $pink-200;
+  color: $background-color;
+
+  &:hover {
+    background-color: $pink-300;
+  }
+
+  &.cancelbtt {
+    background-color: white;
+    color: $primary-color;
+    border: 1px solid $primary-color;
+
+    &:hover {
+      color: white;
+      background-color: $pink-300;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      border: 1px solid white;
+    }
+  }
+
+  &.delete {
+    background-color: white;
+    color: $primary-color;
+
+    &:hover {
+      color: white;
+      background-color: $pink-300;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &.primary {
+    background-color: $primary-color;
+
+    &:hover {
+      background-color: $secondary-color;
+    }
+  }
+
+  &.edit {
+    background-color: $gray-500;
+
+    &:hover {
+      background-color: #4B5563;
+    }
+  }
+
+  &.unwrap {
+    background-color: $gray-300;
+    color: $gray-700;
+
+    &:hover {
+      background-color: #9CA3AF;
+    }
+  }
+}
+
+// Symbol Buttons
+button.symbol-btn {
+  @include symbol-button;
+
+  &.delete {
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+
+  &.primary {
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+
+  &.edit {
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+
+  &.unwrap {
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+}
+
+// Button Row
+.button-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+// General Table Styles
+table {
+  width: 100%; // Ensure full width
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: $padding-sm;
+  background-color: $background-color;
+  border: 1px solid $gray-300;
+  border-radius: $border-radius;
+  box-shadow: $shadow-light;
+  table-layout: fixed;
+  max-width: 756px;
+  margin-left: auto;
+  margin-right: auto;
+
+  th,
+  td {
+    padding: 6px 10px;
+    border-bottom: 1px solid $gray-300;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: $pink-100;
+    color: $gray-700;
+    font-weight: 500;
+
+    &:first-child {
+      border-top-left-radius: $border-radius;
+    }
+
+    &:last-child {
+      border-top-right-radius: $border-radius;
+    }
+  }
+
+  tr {
+    width: 100%; // Ensure tr takes full table width
+    &:last-child td {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: $pink-100;
+    }
+  }
+}
+
+// Wrapped Departments Table
+.company-page table {
+  tr {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .title-section {
+    display: flex;
+    justify-content: space-between;
+  }
+  th,
+  td {
+    &:first-child {
+      width: 100%; // Single column for all content
+      text-align: left;
+      padding: 6px 15px; // Consistent padding on both sides
+      white-space: nowrap; // Prevent wrapping
+      display: flex;
+      justify-content: space-between; // Space between name and buttons
+      align-items: center;
+    }
+
+    .department-name {
+      margin-right: auto; // Push buttons to the right
+    }
+
+    .button-row {
+      justify-content: flex-end; // Align all buttons to the right
+    }
+  }
+}
+
+// Unwrap Section
+.unwrap-section {
+  padding: $padding-sm;
+  background-color: $pink-100;
+  border: 1px solid $gray-300;
+  border-radius: $border-radius;
+  margin: 1rem 0;
+  box-shadow: $shadow-light;
+  width: 100%;
+  max-width: 756px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Nested Employee Table
+.unwrap-section table {
+  max-width: 756px;
+
+  th,
+  td {
+    padding: 6px 10px;
+    vertical-align: middle;
+  }
+
+  th:first-child,
+  td:first-child {
+    width: 30%;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 25%;
+    text-align: right;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 20%;
+    text-align: center;
+  }
+
+  th:last-child,
+  td:last-child {
+    width: 25%;
+    text-align: right;
+  }
+
+  .button-row {
+    justify-content: flex-end;
+  }
+}
+
+// Fix Overlapping Columns on Other Pages
+.salaries table,
+.department-ranking table,
+.employee-list table {
+  th,
+  td {
+    padding: 6px 10px;
+    vertical-align: middle;
+  }
+
+  th:first-child,
+  td:first-child {
+    width: 25%; // Name
+    text-align: left; // Align left
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 20%; // Salary
+    text-align: center; // Align center
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 15%; // Manager
+    text-align: center; // Align center
+  }
+
+  th:nth-child(4),
+  td:nth-child(4) {
+    width: 40%; // Occupation
+    text-align: right; // Align right
+  }
+
+  th:last-child,
+  td:last-child {
+    width: 40%; // Occupation
+    text-align: right; // Align right
+    white-space: nowrap; // Prevent wrapping
+  }
+
+  td:nth-child(4),
+  td:last-child {
+    // Add scrollbar for Occupation column
+    .occupation-scroll {
+      width: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
+      display: inline-block; // Ensure it doesn't affect row height
+    }
+  }
+}
+
+// Ensure no positioning conflicts
+.button-row,
+.actions-column {
+  position: static !important;
+}
+
+// Loader Styles
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; // Match the min-height of highlight-section
+  width: 100%;
+}
+
+.loader {
+  border: 4px solid $gray-300;
+  border-top: 4px solid $primary-color;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Forms
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background-color: $background-color;
+  padding: $padding-sm;
+  border-radius: $border-radius;
+  align-items: center;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-weight: 400;
+    position: relative;
+    align-items: center;
+    text-align: center;
+
+    &.centered-label {
+      align-items: center;
+      text-align: center;
+    }
+
+    input,
+    select {
+      padding: 10px;
+      border: 1px solid $gray-300;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+      width: 100%;
+      max-width: 300px;
+
+      &:focus {
+        border-color: $primary-color;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+      }
+    }
+
+    select[multiple] {
+      height: 100px;
+    }
+
+    input[type='checkbox'] {
+      width: 16px;
+      height: 16px;
+      accent-color: $primary-color;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .manager-label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  p {
+    padding: 10px;
+    background-color: $pink-100;
+    border-radius: $border-radius;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+}
+
+.entries-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0;
+  max-height: 600px;
+  overflow-y: auto;
+  width: 100%;
+  justify-content: flex-start;
+  min-height: 0;
+  flex-grow: 1;
+}
+
+.employee-entry {
+  padding: $padding-sm;
+  border: 1px solid $gray-300;
+  border-radius: $border-radius;
+  background-color: #FFF1F2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.remove-entry {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  color: $primary-color;
+  border: none;
+  border-radius: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    color: $secondary-color;
+  }
+}
+
+.form-number {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  color: $gray-500;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.departments-section {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  background-color: $pink-100;
+  border-radius: $border-radius;
+  max-height: 150px;
+  overflow-y: auto;
+  max-width: 300px;
+  width: 100%;
+}
+
+.company-departments {
+  margin-bottom: 0.5rem;
+
+  h5 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: $gray-700;
+    margin-bottom: 0.25rem;
+  }
+}
+
+.department-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.department-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid $gray-300;
+    border-radius: 4px;
+    margin-right: 0;
+    cursor: pointer;
+    background-color: $background-color;
+    transition: $transition;
+
+    &:checked {
+      background-color: $primary-color;
+      border-color: $primary-color;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: 12px 12px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
+// Headings
+h2 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: $padding-sm;
+  color: $gray-700;
+  text-align: center;
+  position: relative;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: $gray-700;
+  text-align: center;
+  position: relative;
+}
+
+h4 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+
+// Company Header Specific Styling
+.company-header {
+  text-align: center;
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin: 0;
+    margin-bottom: 2rem;
+  }
+
+  div[style*="position: absolute"] {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    width: auto;
+  }
+}
+
+// Company Cards
+.home,
+.company-list,
+.salaries,
+.department-ranking,
+.employee-list {
+  text-align: center;
+
+  .company-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $gap-base;
+    margin-top: $padding-sm;
+    justify-content: center;
+  }
+
+  .company-card {
+    background-color: $background-color;
+    border: 1px solid $gray-300;
+    border-radius: $border-radius;
+    padding: $padding-sm;
+    width: 300px;
+    box-shadow: $shadow-light;
+    transition: $transition;
+    animation: fadeIn 0.5s ease-out;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-medium;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin: 0 0 0.75rem;
+      text-align: center;
+
+      a {
+        color: $primary-color;
+        text-decoration: none;
+
+        &:hover {
+          color: $secondary-color;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    p {
+      margin: 0;
+      color: $gray-500;
+      font-size: 0.95rem;
+    }
+  }
+
+  .add-company-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: $primary-color;
+    text-decoration: none;
+
+    &:hover {
+      color: $secondary-color;
+      text-decoration: underline;
+    }
+  }
+
+  .letter-section {
+    margin-bottom: 2rem;
+
+    h3 {
+      background-color: $pink-100;
+      padding: 0.5rem 1rem;
+      border-radius: $border-radius;
+      display: inline-block;
+    }
+  }
+}
+
+// Highlight Section
+.highlight-section {
+  background-color: $pink-100;
+  border: 1px solid $primary-color;
+  border-radius: $border-radius;
+  padding: $padding-sm;
+  margin-bottom: 2rem;
+  box-shadow: $shadow-light;
+  animation: fadeIn 0.5s ease-out;
+  min-height: 250px; // Reserve space for three highlight items
+
+  .highlight-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $gap-base;
+    justify-content: center;
+  }
+
+  .highlight-item {
+    background-color: $background-color;
+    border: 1px solid $gray-300;
+    border-radius: $border-radius;
+    padding: 1rem;
+    width: 220px;
+    text-align: left;
+    box-shadow: $shadow-light;
+    transition: $transition;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-medium;
+    }
+
+    p {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+      color: $gray-700;
+
+      strong {
+        color: $gray-700;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Actions
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin: $padding-sm 0;
+  justify-content: center;
+}
+
+// Error Boundary
+.error-boundary {
+  background-color: $pink-100;
+  padding: $padding-sm;
+  border: 1px solid $primary-color;
+  border-radius: $border-radius;
+  margin: 2rem auto;
+  max-width: 600px;
+  box-shadow: $shadow-light;
+
+  h2 {
+    color: $primary-color;
+    font-weight: 500;
+  }
+
+  p {
+    color: $gray-700;
+  }
+
+  pre {
+    background-color: #FFF1F1;
+    padding: 1rem;
+    border-radius: $border-radius;
+    font-size: 0.85rem;
+    overflow-x: auto;
+  }
+}
+
+// Modal Styles
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.confirm-modal {
+  background-color: $background-color;
+  border: 1px solid $gray-300;
+  border-radius: $border-radius;
+  padding: $padding-sm;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  h2 {
+    text-align: center;
+  }
+
+  p {
+    font-size: 1rem;
+    color: $gray-700;
+    margin-bottom: $padding-sm;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+
+    .cancel {
+      background-color: $gray-300;
+      color: $gray-700;
+
+      &:hover {
+        background-color: #9CA3AF;
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
