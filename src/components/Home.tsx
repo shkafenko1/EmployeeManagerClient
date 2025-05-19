@@ -53,13 +53,13 @@ const Home: React.FC = () => {
         {companies.map(company => (
           <div key={company.id} className="company-card">
             <h3>
-              <Link to={`/company/${company.id}`}>{company.name}</Link>
+              <Link title ={`View ${company.name}`} to={`/company/${company.id}`}>{company.name}</Link>
             </h3>
             <p>Location: {company.location}</p>
           </div>
         ))}
         <div className="company-card">
-          <Link to="#" className="add-company-link" onClick={(e) => { e.preventDefault(); setIsCompanyFormOpen(true); }}>
+          <Link to="#" className="add-company-link" title="Add Company" onClick={(e) => { e.preventDefault(); setIsCompanyFormOpen(true); }}>
             Add Company
           </Link>
         </div>
